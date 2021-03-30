@@ -30,11 +30,26 @@ class ProductoList extends Component {
                     <TableHeaderColumn isKey dataField="nombre" dataSort>
                         Nombre
                     </TableHeaderColumn>
-                    <TableHeaderColumn dataField="precio" dataSort>
+                    <TableHeaderColumn 
+                        dataField="precio" 
+                        dataSort
+                        dataFormat={cell=>`Q ${cell}`}
+                        >
                         Precio
                     </TableHeaderColumn>
                     <TableHeaderColumn dataField="descripcion" dataSort>
                         Descripcion
+                    </TableHeaderColumn>
+                    <TableHeaderColumn 
+                        dataField="imagen" 
+                        dataSort
+                        dataFormat={(cell)=>{
+                            return(
+                                <img src={cell} style={{width:"40px"}}/>
+                            )
+                        }}
+                        >
+                        Imagen
                     </TableHeaderColumn>
                     <TableHeaderColumn
                         dataField="id"

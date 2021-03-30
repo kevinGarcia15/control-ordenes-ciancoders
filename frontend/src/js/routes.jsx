@@ -40,6 +40,9 @@ module.exports = (
 
                 <ProtectedRoute exact path="/productos" component={ProductoListContainer} />
                 <ProtectedRoute exact path="/productos/crear" component={ProductoCrearContainer} />
+                <ProtectedRoute exact path="/productos/:id/" component={ProductoCrearContainer} />
+                <ProtectedRoute exact path="/productos/:id/editar" component={ProductoCrearContainer} />
+
                 <Route component={NotFound} />
             </Switch>
         </div>

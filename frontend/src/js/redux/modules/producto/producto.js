@@ -7,6 +7,7 @@ import { initialize as initializeForm } from "redux-form";
 const GUARDAR_LISTADO_MISPRODUCTOS = "GUARDAR_LISTADO_MISPRODUCTOS";
 const GUARDAR_PAGINA = "GUARDAR_PAGINA";
 const LOADER = "LOADER"
+const GUARDAR_PRODUCTO = "GUARDAR_PRODUCTO"
 
 export const setLoader = (loader) => ({
     type: LOADER,
@@ -38,7 +39,7 @@ const crear = (data = {}, attachments = []) => (dispatch, getStore) => {
                 "Exito",
                 2000
             );
-            //            dispatch(push('/productos'))
+            dispatch(push('/productos'))
         })
         .catch((error) => {
             NotificationManager.error(
@@ -52,9 +53,25 @@ const crear = (data = {}, attachments = []) => (dispatch, getStore) => {
         });
 };
 
+const leer = (id) => (dispatch) => {
+    api.get(`productos/${id}`)
+        .then((response) => {
+            dispatch(initializeForm("productoForm", response));
+            dispatch({
+                type: GUARDAR_PRODUCTO,
+                producto: response,
+            });
+        })
+        .catch((error) => {
+            NotificationManager.error(error.detail, "ERROR", 0);
+        })
+        .finally(() => {});
+};
+
 export const actions = {
     listar,
     crear,
+    leer,
 };
 
 export const reducers = {
@@ -70,12 +87,19 @@ export const reducers = {
             page,
         };
     },
+    [GUARDAR_PRODUCTO]:(state,{producto})=>{
+        return{
+            ...state,
+            producto
+        }
+    },
 };
 
 export const initialState = {
     loader: false,
     data: {},
     page: 1,
+    producto:{},
 };
 
 export default handleActions(reducers, initialState);

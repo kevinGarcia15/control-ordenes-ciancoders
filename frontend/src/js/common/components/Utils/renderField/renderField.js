@@ -10,7 +10,7 @@ import _ from "lodash";
 
 
 export const renderField = ({
-                                input, placeholder, type, meta: { touched, error },
+                                input,disabled, placeholder, type, meta: { touched, error },
                             }) => {
     const invalid = touched && error;
     return (
@@ -19,6 +19,7 @@ export const renderField = ({
                 {...input}
                 placeholder={placeholder}
                 type={type}
+                disabled={disabled}
                 className={classNames('form-control', { 'is-invalid': invalid })}
             />
             {invalid && (
@@ -31,7 +32,7 @@ export const renderField = ({
 };
 
 export const renderTextArea = ({
-                                   input, placeholder, rows, meta: { touched, error },
+                                   input, disabled, placeholder, rows, meta: { touched, error },
                                }) => {
     const invalid = touched && error;
     return (
@@ -39,6 +40,7 @@ export const renderTextArea = ({
       <textarea
           {...input}
           placeholder={placeholder}
+          disabled={disabled}
           style={{ resize: 'none' }}
           rows={rows || 3}
           className={classNames('form-control', { 'is-invalid': invalid })}
@@ -53,7 +55,7 @@ export const renderTextArea = ({
 };
 
 export const renderNumber = ({
-                                 input, decimalScale, placeholder, meta: { touched, error }, prefix="", suffix="", numberFormat,
+                                 input, disabled, decimalScale, placeholder, meta: { touched, error }, prefix="", suffix="", numberFormat,
                              }) => {
     const invalid = touched && error;
     return (
@@ -64,6 +66,7 @@ export const renderNumber = ({
                 decimalScale={decimalScale || 0}
                 format={numberFormat}
                 fixedDecimalScale
+                disabled={disabled}
                 value={input.value}
                 thousandSeparator
                 prefix={prefix}

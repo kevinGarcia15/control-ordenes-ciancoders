@@ -11,13 +11,14 @@ import { validate, validators } from "validate-redux-form";
 
 export class ProductoForm extends Component {
     render() {
-        const { titulo, crear, handleSubmit, setArchivo } = this.props;
+        const { titulo, crear, handleSubmit, setArchivo, producto } = this.props;
+        let editar = window.location.href.includes("editar");
         let disabled = false;
+        crear == false && editar == false
+        ? (disabled = true)
+        : (disabled = false);
         return (
             <form className="row" onSubmit={handleSubmit}>
-                <div className="col-12">
-                    <h3 className="text-center"></h3>
-                </div>
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
@@ -57,6 +58,7 @@ export class ProductoForm extends Component {
                                     <div className="mb-2">
                                         <label htmlFor="avatar">Imagen</label>
                                         <Field
+                                            photo={producto.imagen ? producto.imagen : null}
                                             name="imagen"
                                             setFile={setArchivo}
                                             disabled={disabled}

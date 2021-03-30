@@ -82,7 +82,6 @@ class UserViewset(viewsets.ModelViewSet):
             if profile is not None:
                 perfil.phone = profile.get("phone", perfil.phone)
                 perfil.address = profile.get("address", perfil.address)
-                perfil.gender = profile.get("gender", perfil.gender)
             user.save()
             perfil.save()
             serializer = UserReadSerializer(user)

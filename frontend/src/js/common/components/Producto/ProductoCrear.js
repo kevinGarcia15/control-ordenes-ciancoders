@@ -7,6 +7,17 @@ class ProductoCrear extends Component {
         titulo: "Crear",
         imagen: null,
     };
+    componentDidMount(){
+        const {leer, match} = this.props
+        const id = match.params.id
+        if(id){
+            leer(id)
+            this.setState({
+                crear:false,
+                titulo:"Ver"
+            })
+        }
+    }
     setArchivo = (imagen) => {
         this.setState({ imagen: imagen });
     };
@@ -17,7 +28,7 @@ class ProductoCrear extends Component {
         ]);
     };
     render() {
-        const { crear } = this.props;
+        const { producto } = this.props;
         const funcionEnvio = this.crear;
         return (
             <div className="container mt-3">
@@ -25,6 +36,7 @@ class ProductoCrear extends Component {
                     onSubmit={funcionEnvio}
                     crear={this.state.crear}
                     titulo={this.state.titulo}
+                    producto={producto}
                     setArchivo={this.setArchivo}
                 />
             </div>
