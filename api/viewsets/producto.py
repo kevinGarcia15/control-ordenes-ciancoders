@@ -68,3 +68,25 @@ class ProductoViewset(viewsets.ModelViewSet):
                 return Response("creado exitosamete", status=status.HTTP_201_CREATED)
         except TypeError as e:
            return Response(e, status=status.HTTP_400_BAD_REQUEST)
+
+    def update(self, request, pk):
+        """Reescribiendo el metodo update"""
+        try:
+            data = request.data
+            imagen = data.get('imagen')
+            data = json.loads(data["data"])
+            serializer = ProductoSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                producto = Producto.objects.get(pk=pk)
+                if imagen is not None: 
+                    if producto.imagen is not None:
+                        producto.imagen.delete()
+                        producto.imagen=File(imagen)
+                producto.nombre = data.get('nombre')
+                producto.precio = data.get('precio')
+                producto.descripcion = data.get('descripcion')
+                producto.nombre = data.get('nombre')
+                producto.save()
+                return Response("datos actualizados", status=status.HTTP_200_OK)
+        except TypeError as e:
+           return Response(e, status=status.HTTP_400_BAD_REQUEST)        

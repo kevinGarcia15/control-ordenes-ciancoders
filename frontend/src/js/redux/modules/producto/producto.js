@@ -6,8 +6,8 @@ import { initialize as initializeForm } from "redux-form";
 
 const GUARDAR_LISTADO_MISPRODUCTOS = "GUARDAR_LISTADO_MISPRODUCTOS";
 const GUARDAR_PAGINA = "GUARDAR_PAGINA";
-const LOADER = "LOADER"
-const GUARDAR_PRODUCTO = "GUARDAR_PRODUCTO"
+const LOADER = "LOADER";
+const GUARDAR_PRODUCTO = "GUARDAR_PRODUCTO";
 
 export const setLoader = (loader) => ({
     type: LOADER,
@@ -31,7 +31,7 @@ const listar = (page = 1) => (dispatch, getStore) => {
 
 const crear = (data = {}, attachments = []) => (dispatch, getStore) => {
     dispatch(setLoader(true));
-    console.log(attachments)
+    console.log(attachments);
     api.postAttachments("/productos", data, attachments)
         .then((response) => {
             NotificationManager.success(
@@ -39,7 +39,7 @@ const crear = (data = {}, attachments = []) => (dispatch, getStore) => {
                 "Exito",
                 2000
             );
-            dispatch(push('/productos'))
+            dispatch(push("/productos"));
         })
         .catch((error) => {
             NotificationManager.error(
@@ -68,10 +68,33 @@ const leer = (id) => (dispatch) => {
         .finally(() => {});
 };
 
+const actualizar = (data = {}, attachments = []) => (dispatch) => {
+    dispatch(setLoader(true));
+    api.putAttachments(`productos/${data.id}`, data, attachments)
+        .then((response) => {
+            NotificationManager.success(
+                "Datos actualizados exitosamente",
+                "Exito",
+                1000
+            );
+            dispatch(push(`/productos`));
+        })
+        .catch(() => {
+            NotificationManager.error(
+                "Ha ocurrido un error al actualizar los datos",
+                "ERROR",
+                5000
+            );
+        })
+        .finally(() => {
+            dispatch(setLoader(false));
+        });
+};
 export const actions = {
     listar,
     crear,
     leer,
+    actualizar
 };
 
 export const reducers = {
@@ -87,11 +110,11 @@ export const reducers = {
             page,
         };
     },
-    [GUARDAR_PRODUCTO]:(state,{producto})=>{
-        return{
+    [GUARDAR_PRODUCTO]: (state, { producto }) => {
+        return {
             ...state,
-            producto
-        }
+            producto,
+        };
     },
 };
 
@@ -99,7 +122,7 @@ export const initialState = {
     loader: false,
     data: {},
     page: 1,
-    producto:{},
+    producto: {},
 };
 
 export default handleActions(reducers, initialState);

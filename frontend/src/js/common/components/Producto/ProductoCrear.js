@@ -7,29 +7,38 @@ class ProductoCrear extends Component {
         titulo: "Crear",
         imagen: null,
     };
-    componentDidMount(){
-        const {leer, match} = this.props
-        const id = match.params.id
-        if(id){
-            leer(id)
+    componentDidMount() {
+        const { leer, match } = this.props;
+        const id = match.params.id;
+        if (id) {
+            leer(id);
             this.setState({
-                crear:false,
-                titulo:"Ver"
-            })
+                crear: false,
+                titulo: "Ver",
+            });
         }
     }
     setArchivo = (imagen) => {
         this.setState({ imagen: imagen });
     };
+
     crear = (data) => {
         const { crear } = this.props;
         crear({ ...data, imagen: null }, [
             { file: this.state.imagen, name: "imagen" },
         ]);
     };
+
+    actualizar = (data)=>{
+        const {actualizar}= this.props
+        actualizar(
+            {...data, imagen:null},
+            [{file:this.state.imagen, name:"imagen"}])
+    }
+
     render() {
         const { producto } = this.props;
-        const funcionEnvio = this.crear;
+        const funcionEnvio = this.state.crear ? this.crear: this.actualizar;
         return (
             <div className="container mt-3">
                 <ProductoForm
