@@ -6,6 +6,12 @@ import { initialize as initializeForm } from "redux-form";
 
 const GUARDAR_LISTADO_MISPRODUCTOS = "GUARDAR_LISTADO_MISPRODUCTOS";
 const GUARDAR_PAGINA = "GUARDAR_PAGINA";
+const LOADER = "LOADER"
+
+export const setLoader = (loader) => ({
+    type: LOADER,
+    loader,
+});
 
 const listar = (page = 1) => (dispatch, getStore) => {
     api.get("/productos/misproductos")
@@ -22,8 +28,33 @@ const listar = (page = 1) => (dispatch, getStore) => {
         });
 };
 
+const crear = (data = {}, attachments = []) => (dispatch, getStore) => {
+    dispatch(setLoader(true));
+    console.log(attachments)
+    api.postAttachments("/productos", data, attachments)
+        .then((response) => {
+            NotificationManager.success(
+                "Producto creado exitosamente",
+                "Exito",
+                2000
+            );
+            //            dispatch(push('/productos'))
+        })
+        .catch((error) => {
+            NotificationManager.error(
+                "Ha ocurrido un error al subir el producto",
+                "Error",
+                3000
+            );
+        })
+        .finally(() => {
+            dispatch(setLoader(false));
+        });
+};
+
 export const actions = {
     listar,
+    crear,
 };
 
 export const reducers = {

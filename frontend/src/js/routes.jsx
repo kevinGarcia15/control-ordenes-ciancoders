@@ -23,6 +23,7 @@ import Grids from "./common/components/Examples/Grids";
 import Notificaciones from './common/components/Examples/Notificaciones';
 import ExampleTabs from './common/components/Examples/Tabs/Tabs';
 import ProductoListContainer from './common/components/Producto/ProductoListContainer'
+import ProductoCrearContainer from './common/components/Producto/ProductoCrearContainer'
 
 module.exports = (
     <div>
@@ -36,7 +37,9 @@ module.exports = (
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
                 <ProtectedRoute exact path="/tabs" component={ExampleTabs} />
+
                 <ProtectedRoute exact path="/productos" component={ProductoListContainer} />
+                <ProtectedRoute exact path="/productos/crear" component={ProductoCrearContainer} />
                 <Route component={NotFound} />
             </Switch>
         </div>

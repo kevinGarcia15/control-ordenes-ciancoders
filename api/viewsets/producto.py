@@ -6,6 +6,8 @@ from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
+from django.core.files import File
+
 
 #models
 from api.models import Producto
@@ -45,3 +47,24 @@ class ProductoViewset(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = ProductoReadSerializer(productos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request):
+        """Reescribiendo el metodo create"""
+        try:
+            profile = request.user.profile
+            data = request.data
+            imagen = data.get('imagen')
+            data = json.loads(data["data"])
+            serializer = ProductoSerializer(data=data)
+            #import pdb; pdb.set_trace()
+            if serializer.is_valid(raise_exception=True):
+                Producto.objects.create(
+                    nombre=data.get('nombre'),
+                    precio=data.get('precio'),
+                    descripcion=data.get('descripcion'),
+                    imagen=File(imagen),
+                    duenio=profile
+                ) 
+                return Response("creado exitosamete", status=status.HTTP_201_CREATED)
+        except TypeError as e:
+           return Response(e, status=status.HTTP_400_BAD_REQUEST)

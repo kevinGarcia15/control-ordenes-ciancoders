@@ -33,7 +33,7 @@ class ProductoList extends Component {
                     <TableHeaderColumn dataField="precio" dataSort>
                         Precio
                     </TableHeaderColumn>
-                    <TableHeaderColumn dataField="Descripcion" dataSort>
+                    <TableHeaderColumn dataField="descripcion" dataSort>
                         Descripcion
                     </TableHeaderColumn>
                     <TableHeaderColumn
@@ -41,8 +41,8 @@ class ProductoList extends Component {
                         dataAlign="center"
                         dataSort
                         dataFormat={standardActions({
-                            editar: "estudiantes",
-                            ver: "estudiantes",
+                            editar: "productos",
+                            ver: "productos",
                             eliminar: () => {},
                         })}
                     >
