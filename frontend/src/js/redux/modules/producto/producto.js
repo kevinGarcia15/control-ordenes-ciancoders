@@ -90,11 +90,31 @@ const actualizar = (data = {}, attachments = []) => (dispatch) => {
             dispatch(setLoader(false));
         });
 };
+
+const eliminar = (id) => (dispatch) => {
+    dispatch(setLoader(true));
+    api.eliminar(`productos/${id}`)
+        .then(() => {
+            dispatch(listar());
+            NotificationManager.success("Registro eliminado", "Éxito", 3000);
+        })
+        .catch(() => {
+            NotificationManager.success(
+                "Error en la transacción",
+                "Éxito",
+                3000
+            );
+        })
+        .finally(() => {
+            dispatch(setLoader(false));
+        });
+};
 export const actions = {
     listar,
     crear,
     leer,
-    actualizar
+    actualizar,
+    eliminar
 };
 
 export const reducers = {

@@ -90,3 +90,10 @@ class ProductoViewset(viewsets.ModelViewSet):
                 return Response("datos actualizados", status=status.HTTP_200_OK)
         except TypeError as e:
            return Response(e, status=status.HTTP_400_BAD_REQUEST)        
+
+    def destroy(self, request, pk):
+        producto = Producto.objects.get(pk=pk)
+        producto.imagen.delete()
+        producto.activo = False
+        producto.save()
+        return Response({"producto eliminado exitosamente"}, status=status.HTTP_200_OK)

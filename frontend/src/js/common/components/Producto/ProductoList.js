@@ -10,7 +10,7 @@ class ProductoList extends Component {
         listar()
     }
     render() {
-        const { data, loader } = this.props;
+        const { data, loader, eliminar } = this.props;
         return (
             <React.Fragment>
                 <Link
@@ -58,7 +58,7 @@ class ProductoList extends Component {
                         dataFormat={standardActions({
                             editar: "productos",
                             ver: "productos",
-                            eliminar: () => {},
+                            eliminar: eliminar,
                         })}
                     >
                         Acciones
