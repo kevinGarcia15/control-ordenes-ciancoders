@@ -8,6 +8,8 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from django.core.files import File
 
+#permissions
+from api.permissions.producto import IsOwnProduct
 
 #models
 from api.models import Producto
@@ -30,6 +32,8 @@ class ProductoViewset(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ['list', 'retreve']:
             permission_classes = [AllowAny]
+        elif self.action in ['update', 'destroy']:
+            permission_classes = [IsOwnProduct,IsAuthenticated]
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
