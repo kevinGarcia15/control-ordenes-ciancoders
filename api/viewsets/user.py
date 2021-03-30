@@ -44,6 +44,7 @@ class UserViewset(viewsets.ModelViewSet):
         usuario = User.objects.get(username=request.data["username"])
         usuario.set_password(request.data["password"])
         usuario.save()
+        Profile.objects.create(user=usuario)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
