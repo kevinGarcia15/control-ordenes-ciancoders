@@ -35,7 +35,7 @@ export class TodosProductosList extends Component {
                                                   {item.descripcion}
                                               </p>
                                               <Link
-                                                  to={`chekout/${item.id}`}
+                                                  to={`comprar/${item.id}`}
                                                   className="btn btn-primary"
                                               >
                                                   comprar
