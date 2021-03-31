@@ -8,6 +8,7 @@ const GUARDAR_LISTADO_MISPRODUCTOS = "GUARDAR_LISTADO_MISPRODUCTOS";
 const GUARDAR_PAGINA = "GUARDAR_PAGINA";
 const LOADER = "LOADER";
 const GUARDAR_PRODUCTO = "GUARDAR_PRODUCTO";
+const GUARDAR_LISTADO_PRODUCTOS_VENTA = "GUARDAR_LISTADO_PRODUCTOS_VENTA"
 
 export const setLoader = (loader) => ({
     type: LOADER,
@@ -109,12 +110,27 @@ const eliminar = (id) => (dispatch) => {
             dispatch(setLoader(false));
         });
 };
+
+const listarProductosVenta = ()=>(dispatch)=>{
+    api.get("/productos")
+    .then((response) => {
+        dispatch({ type: GUARDAR_LISTADO_PRODUCTOS_VENTA, productosVenta: response });
+    })
+    .catch((error) => {
+        NotificationManager.error(
+            "ocurrio un error al listar los productos",
+            "ERROR",
+            3000
+        );
+    });
+}
 export const actions = {
     listar,
     crear,
     leer,
     actualizar,
-    eliminar
+    eliminar,
+    listarProductosVenta
 };
 
 export const reducers = {
@@ -136,6 +152,12 @@ export const reducers = {
             producto,
         };
     },
+    [GUARDAR_LISTADO_PRODUCTOS_VENTA]: (state, { productosVenta }) => {
+        return {
+            ...state,
+            productosVenta,
+        };
+    },
 };
 
 export const initialState = {
@@ -143,6 +165,7 @@ export const initialState = {
     data: {},
     page: 1,
     producto: {},
+    productosVenta:{}, 
 };
 
 export default handleActions(reducers, initialState);

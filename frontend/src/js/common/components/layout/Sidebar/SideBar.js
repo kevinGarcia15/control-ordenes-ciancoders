@@ -30,7 +30,7 @@ class SideBar extends Component {
                 <div className="nav-wrapper">
                     <ul className="nav--no-borders flex-column nav">
                         <li className="nav-item">
-                            <NavLink to="/" exact className="nav-link " activeClassName={'active'}>
+                            <NavLink to="/vendedor" exact className="nav-link " activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">
                                     <i className="material-icons">edit</i>
                                 </div>

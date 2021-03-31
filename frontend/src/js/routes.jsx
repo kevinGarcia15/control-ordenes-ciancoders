@@ -24,6 +24,7 @@ import Notificaciones from './common/components/Examples/Notificaciones';
 import ExampleTabs from './common/components/Examples/Tabs/Tabs';
 import ProductoListContainer from './common/components/Producto/ProductoListContainer'
 import ProductoCrearContainer from './common/components/Producto/ProductoCrearContainer'
+import TotodsProductosListContainer from './common/components/Producto/TodosProductosListContainer'
 
 module.exports = (
     <div>
@@ -31,8 +32,7 @@ module.exports = (
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
-                <ProtectedRoute exact path="/" component={Demo} />
-                <ProtectedRoute exact path="/page2" component={Examples} />
+                <Route exact path="/" component={TotodsProductosListContainer} />
                 <ProtectedRoute exact path="/user-profile" component={Profile} />
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/notifications" component={Notificaciones} />
@@ -42,6 +42,7 @@ module.exports = (
                 <ProtectedRoute exact path="/productos/crear" component={ProductoCrearContainer} />
                 <ProtectedRoute exact path="/productos/:id/" component={ProductoCrearContainer} />
                 <ProtectedRoute exact path="/productos/:id/editar" component={ProductoCrearContainer} />
+                <ProtectedRoute exact path="/vendedor/" component={TotodsProductosListContainer} />
 
                 <Route component={NotFound} />
             </Switch>
