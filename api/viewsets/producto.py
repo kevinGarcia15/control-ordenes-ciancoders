@@ -9,7 +9,7 @@ from rest_framework.pagination import PageNumberPagination
 from django.core.files import File
 
 #permissions
-from api.permissions.producto import IsOwnProduct
+from api.permission.producto import IsOwnProducto
 
 #models
 from api.models import Producto
@@ -30,10 +30,8 @@ class ProductoViewset(viewsets.ModelViewSet):
 
 
     def get_permissions(self):
-        if self.action in ['list', 'retreve']:
+        if self.action in ['list', 'retrieve']:
             permission_classes = [AllowAny]
-        elif self.action in ['update', 'destroy']:
-            permission_classes = [IsOwnProduct,IsAuthenticated]
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
@@ -82,6 +80,8 @@ class ProductoViewset(viewsets.ModelViewSet):
             serializer = ProductoSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 producto = Producto.objects.get(pk=pk)
+                if request.user.profile != producto.duenio:
+                    return Response("no tiene permiso para realizar esta accion", status=status.HTTP_401_UNAUTHORIZED)
                 if imagen is not None: 
                     if producto.imagen is not None:
                         producto.imagen.delete()
