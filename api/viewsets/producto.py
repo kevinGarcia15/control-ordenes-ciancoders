@@ -97,6 +97,8 @@ class ProductoViewset(viewsets.ModelViewSet):
 
     def destroy(self, request, pk):
         producto = Producto.objects.get(pk=pk)
+        if request.user.profile != producto.duenio:
+            return Response("no tiene permiso para realizar esta accion", status=status.HTTP_401_UNAUTHORIZED)
         producto.imagen.delete()
         producto.activo = False
         producto.save()
