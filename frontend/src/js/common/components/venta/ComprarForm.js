@@ -9,7 +9,8 @@ class ComprarForm extends Component {
         const { handleSubmit, ventaForm, precioProducto } = this.props;
         /**obtiene el valor del campo cantidad del formulario */
         const cantidadForm = ventaForm.values ? ventaForm.values.cantidad : 0;
-        const returnUrl = localStorage.getItem('token')? "/vendedor":"/"
+        const isTokenExist = localStorage.getItem('token')
+        const returnUrl = isTokenExist ? "/vendedor":"/"
         return (
             <form onSubmit={handleSubmit}>
                 <label htmlFor="">Cantidad</label>
@@ -19,8 +20,13 @@ class ComprarForm extends Component {
                         Q. {cantidadForm * precioProducto}
                     </p>
                 </div>
-                <label htmlFor="">Correo de contacto</label>
-                <Field name="email" component={renderField} />
+                {!isTokenExist?
+                <React.Fragment>
+                    <label htmlFor="">Correo de contacto</label>
+                    <Field name="email" component={renderField} />
+                </React.Fragment>
+                
+                :null}
                 <button
                     className="btn btn-primary btn-block mt-3"
                     type="submit"
