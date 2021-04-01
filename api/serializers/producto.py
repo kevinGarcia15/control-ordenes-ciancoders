@@ -11,6 +11,8 @@ class ProductoSerializer(serializers.ModelSerializer):
 
 
 class ProductoReadSerializer(serializers.ModelSerializer):
+    totalVendido = serializers.IntegerField(default=0)
+    ingresosObtenidos = serializers.FloatField(default=0)
     class Meta:
         model = Producto
         fields = "__all__"

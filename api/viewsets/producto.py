@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from django.core.files import File
+from django.db.models import Avg, Count, F, Q, Sum, FloatField
+
 
 #permissions
 from api.permission.producto import IsOwnProducto
@@ -42,7 +44,11 @@ class ProductoViewset(viewsets.ModelViewSet):
         """Muestra la lista de productos de un usuario"""
         #import pdb; pdb.set_trace() 
         profile = request.user.profile
-        productos = Producto.objects.filter(duenio=profile, activo=True)
+        productos = Producto.objects.filter(duenio=profile, activo=True
+        ).annotate(totalVendido=Sum('productos__cantidad',output_field=FloatField())
+        ).annotate(ingresosObtenidos=F('totalVendido') * F('precio'))
+
+        #productos = Producto.objects.filter(duenio=profile, activo=True)
         page = self.paginate_queryset(productos)
         if page is not None:
             serializer = ProductoReadSerializer(page, many=True)

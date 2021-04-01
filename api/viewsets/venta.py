@@ -6,7 +6,7 @@ from rest_framework.settings import api_settings
 from django.db import transaction
 
 #modelos
-from api.models import Venta, Producto
+from api.models import Venta, Producto, Venta_producto
 
 #serializers
 from api.serializers import VentaSerializer
@@ -28,8 +28,11 @@ class VentaViewset(viewsets.ModelViewSet):
 
                 venta = Venta.objects.create(
                     comprador = request.user.profile,
-                    cantidad = data.get('cantidad'),
                     email_contacto = data.get('email')
                 )
-                venta.producto.add(producto)    
+                venta_producto = Venta_producto.objects.create(
+                    producto=producto,
+                    venta=venta,
+                    cantidad=data.get('cantidad')
+                )
                 return Response("Creado exitosamente", status=status.HTTP_201_CREATED)            

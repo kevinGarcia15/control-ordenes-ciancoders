@@ -11,6 +11,16 @@ class ProductoList extends Component {
     }
     render() {
         const { data, loader, eliminar } = this.props;
+        let totalVentas = 0
+        let sumaPrecios = 0
+        let conteoProductos = 0
+        data.results ? 
+            data.results.map(item=>{
+                totalVentas = totalVentas + item.ingresosObtenidos
+                sumaPrecios = sumaPrecios + item.precio
+                conteoProductos++
+            })
+        : 0
         return (
             <React.Fragment>
                 <Link
@@ -19,6 +29,8 @@ class ProductoList extends Component {
                 >
                     Ingresar Producto
                 </Link>
+                <h3>Total en ventas: Q{totalVentas}</h3>
+                <h5>Promedio de precios: Q. {Math.floor(sumaPrecios/conteoProductos)}</h5>
                 <Grid
                     hover
                     striped
@@ -50,6 +62,15 @@ class ProductoList extends Component {
                         }}
                         >
                         Imagen
+                    </TableHeaderColumn>
+                    <TableHeaderColumn 
+                        dataField="totalVendido" 
+                        dataSort
+                        dataFormat={(cell,col)=>{
+                            return `${cell} uni. = Q.${col.ingresosObtenidos}`
+                        }}
+                        >
+                        Total Vendido
                     </TableHeaderColumn>
                     <TableHeaderColumn
                         dataField="id"

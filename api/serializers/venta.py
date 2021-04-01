@@ -7,4 +7,4 @@ class VentaSerializer(serializers.ModelSerializer):
     """Venta serializer"""
     class Meta:
         model = Venta
-        fields = ('cantidad', 'email_contacto')
+        fields = ('email_contacto',)
