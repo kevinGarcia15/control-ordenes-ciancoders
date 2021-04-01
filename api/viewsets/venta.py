@@ -6,12 +6,13 @@ from rest_framework.settings import api_settings
 from django.db import transaction
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import action
 
 #modelos
 from api.models import Venta, Producto, Venta_producto
 
 #serializers
-from api.serializers import VentaSerializer, VentaReadSerializer
+from api.serializers import VentaSerializer, VentaReadSerializer, VentaProductoReadSerializer
 
 class VentaPageNumberPagination(PageNumberPagination):
     page_size=10
@@ -76,4 +77,12 @@ class VentaViewset(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = VentaReadSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(methods=["get"], detail=False)
+    def detalle_venta(self, request):
+        """Muestra el detalle de las ventas """
+        venta_id = request.query_params.get("id_venta")
+        detalle_venta = Venta_producto.objects.filter(venta_id = venta_id)
+        serializer = VentaProductoReadSerializer(detalle_venta, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

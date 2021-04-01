@@ -29,6 +29,7 @@ import ComprarContainer from './common/components/venta/ComprarContainer'
 import ProductosListModoInvitado from './common/components/Producto/ProductosListModoInvitado'
 import ComprarModoInvitadoContainer from './common/components/venta/ComprarModoInvitadoContainer'
 import MisVentasContainer from './common/components/venta/MisVentasContainer'
+import DetalleVentaContainer from './common/components/venta/DetalleVentaContainer'
 
 module.exports = (
     <div>
@@ -51,6 +52,7 @@ module.exports = (
 
                 <ProtectedRoute exact path="/comprar/:id" component={ComprarContainer} />
                 <ProtectedRoute exact path="/misventas" component={MisVentasContainer} />
+                <ProtectedRoute exact path="/misventas/detalle/:id" component={DetalleVentaContainer} />
                 <Route exact path="/adquirir/:id" component={ComprarModoInvitadoContainer} />
                 
                 <Route component={NotFound} />

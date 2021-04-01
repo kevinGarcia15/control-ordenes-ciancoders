@@ -48,6 +48,16 @@ export class MisVentas extends Component {
                     <TableHeaderColumn dataField="email_contacto" dataSort>
                         Contacto
                     </TableHeaderColumn>
+                    <TableHeaderColumn
+                        dataField="id"
+                        dataAlign="center"
+                        dataSort
+                        dataFormat={standardActions({
+                            ver: "misventas/detalle",
+                        })}
+                    >
+                        Acciones
+                    </TableHeaderColumn>
                 </Grid>            
             </div>
         )
