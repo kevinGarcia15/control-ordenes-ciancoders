@@ -36,7 +36,7 @@ class Navbar extends Component {
                             caret
                             className="nav-item-dropdown border-0"
                         >
-                            {isTokenExist ? (
+                            {isTokenExist && user ? (
                                 <React.Fragment>
                                     <img
                                         className="user-avatar rounded-circle mr-3"
@@ -65,7 +65,7 @@ class Navbar extends Component {
                             )}
                         </DropdownToggle>
                         <DropdownMenu>
-                            {isTokenExist ? (
+                            {isTokenExist && user ? (
                                 <React.Fragment>
                                     <DropdownItem header>Header</DropdownItem>
                                     <DropdownItem>

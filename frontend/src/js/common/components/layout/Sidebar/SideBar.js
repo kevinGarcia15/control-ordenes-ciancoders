@@ -13,7 +13,7 @@ class SideBar extends Component {
                 <div className="main-navbar">
                     <nav
                         className="align-items-stretch bg-white flex-md-nowrap border-bottom p-0 navbar navbar-light">
-                        <a  href="#" className="w-100 mr-0 navbar-brand" >
+                        <a  href="#/vendedor" className="w-100 mr-0 navbar-brand" >
                             <div className="d-table m-auto">
                                 <img id="main-logo"
                                     className="d-inline-block align-top mr-1"
@@ -43,30 +43,6 @@ class SideBar extends Component {
                                     <i className="material-icons">vertical_split</i>
                                 </div>
                                 <span>Mis productos</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/grids" className="nav-link" activeClassName={'active'}>
-                                <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">vertical_split</i>
-                                </div>
-                                <span>Grids</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/notifications" className="nav-link" activeClassName={'active'}>
-                                <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">vertical_split</i>
-                                </div>
-                                <span>Notificaciones</span>
-                            </NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink to="/tabs" className="nav-link" activeClassName={'active'}>
-                                <div className="d-inline-block item-icon-wrapper">
-                                    <i className="material-icons">vertical_split</i>
-                                </div>
-                                <span>Tabs</span>
                             </NavLink>
                         </li>
                         <li className="nav-item">
