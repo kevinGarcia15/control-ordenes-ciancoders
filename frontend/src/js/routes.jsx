@@ -26,13 +26,15 @@ import ProductoListContainer from './common/components/Producto/ProductoListCont
 import ProductoCrearContainer from './common/components/Producto/ProductoCrearContainer'
 import TotodsProductosListContainer from './common/components/Producto/TodosProductosListContainer'
 import ComprarContainer from './common/components/venta/ComprarContainer'
+import ProductosListModoInvitado from './common/components/Producto/ProductosListModoInvitado'
+import ComprarModoInvitadoContainer from './common/components/venta/ComprarModoInvitadoContainer'
 module.exports = (
     <div>
         <div className="container__content">
             <Switch>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/registro" component={Registro} />
-                <Route exact path="/" component={TotodsProductosListContainer} />
+                <Route exact path="/" component={ProductosListModoInvitado} />
                 <ProtectedRoute exact path="/user-profile" component={Profile} />
                 <ProtectedRoute exact path="/grids" component={Grids} />
                 <ProtectedRoute exact path="/page2" component={Examples} />
@@ -46,7 +48,7 @@ module.exports = (
                 <ProtectedRoute exact path="/vendedor/" component={TotodsProductosListContainer} />
 
                 <ProtectedRoute exact path="/comprar/:id" component={ComprarContainer} />
-                <Route exact path="/adquirir/:id" component={ComprarContainer} />
+                <Route exact path="/adquirir/:id" component={ComprarModoInvitadoContainer} />
                 
                 <Route component={NotFound} />
             </Switch>

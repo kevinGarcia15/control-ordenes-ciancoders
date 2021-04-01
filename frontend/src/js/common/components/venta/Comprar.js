@@ -16,6 +16,7 @@ export class Comprar extends Component {
     }
     render() {
         const { producto, ventaForm } = this.props;
+        const IsVentaForm = ventaForm ? ventaForm : {}
         return (
             <div className="container mt-4">
                 <div className="row">
@@ -38,7 +39,7 @@ export class Comprar extends Component {
                                     <ComprarForm 
                                     onSubmit={this.formularioEnvio} 
                                     precioProducto={producto.precio}
-                                    ventaForm = {ventaForm}
+                                    ventaForm = {IsVentaForm}
                                     />
                                 </div>
                             </div>
