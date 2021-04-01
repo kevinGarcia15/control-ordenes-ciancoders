@@ -46,6 +46,7 @@ module.exports = (
                 <ProtectedRoute exact path="/vendedor/" component={TotodsProductosListContainer} />
 
                 <ProtectedRoute exact path="/comprar/:id" component={ComprarContainer} />
+                <Route exact path="/adquirir/:id" component={ComprarContainer} />
                 
                 <Route component={NotFound} />
             </Switch>

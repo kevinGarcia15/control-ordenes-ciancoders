@@ -8,6 +8,7 @@ export class TodosProductosList extends Component {
     }
     render() {
         const { productosVenta } = this.props;
+        let rutaComprar = localStorage.getItem("token")?"comprar":"adquirir"
         return (
             <div className="mt-4 mr-2 ml-2">
                 <div className="row">
@@ -35,7 +36,7 @@ export class TodosProductosList extends Component {
                                                   {item.descripcion}
                                               </p>
                                               <Link
-                                                  to={`comprar/${item.id}`}
+                                                  to={`${rutaComprar}/${item.id}`}
                                                   className="btn btn-primary"
                                               >
                                                   comprar

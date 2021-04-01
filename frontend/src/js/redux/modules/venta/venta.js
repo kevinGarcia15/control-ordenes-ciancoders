@@ -28,6 +28,7 @@ const crearVenta = (data = {}) => (dispatch)=>{
                 "Exito",
                 5000
             )
+            /**Dependiendo si el usuario esta logeado lo lleva a su ruta */
             const urlpush = localStorage.getItem('token')?"/vendedor":"/"
             dispatch(push(`${urlpush}`));
         })
