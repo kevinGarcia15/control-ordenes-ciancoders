@@ -28,6 +28,8 @@ import TotodsProductosListContainer from './common/components/Producto/TodosProd
 import ComprarContainer from './common/components/venta/ComprarContainer'
 import ProductosListModoInvitado from './common/components/Producto/ProductosListModoInvitado'
 import ComprarModoInvitadoContainer from './common/components/venta/ComprarModoInvitadoContainer'
+import MisVentasContainer from './common/components/venta/MisVentasContainer'
+
 module.exports = (
     <div>
         <div className="container__content">
@@ -48,6 +50,7 @@ module.exports = (
                 <ProtectedRoute exact path="/vendedor/" component={TotodsProductosListContainer} />
 
                 <ProtectedRoute exact path="/comprar/:id" component={ComprarContainer} />
+                <ProtectedRoute exact path="/misventas" component={MisVentasContainer} />
                 <Route exact path="/adquirir/:id" component={ComprarModoInvitadoContainer} />
                 
                 <Route component={NotFound} />

@@ -8,3 +8,11 @@ class VentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Venta
         fields = ('email_contacto',)
+
+
+class VentaReadSerializer(serializers.ModelSerializer):
+    """Venta serializer"""
+    class Meta:
+        model = Venta
+        fields = '__all__'
+        depth=2

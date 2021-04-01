@@ -4,6 +4,8 @@ import { handleActions } from "redux-actions";
 import { push } from "react-router-redux";
 
 const GUARDAR_PRODUCTO = "GUARDAR_PRODUCTO";
+const GUARDAR_LISTADO_MISVENTAS = "GUARDAR_LISTADO_MISVENTAS"
+const GUARDAR_PAGINA = "GUARDAR_PAGINA"
 
 const leer = (id) => (dispatch) => {
     api.get(`productos/${id}`)
@@ -41,9 +43,25 @@ const crearVenta = (data = {}) => (dispatch)=>{
         })
 }
 
+
+const listar = (page = 1) => (dispatch, getStore) => {
+    api.get("/ventas")
+        .then((response) => {
+            dispatch({ type: GUARDAR_LISTADO_MISVENTAS, misVentas: response });
+            dispatch({ type: GUARDAR_PAGINA, page: page });
+        })
+        .catch((error) => {
+            NotificationManager.error(
+                "ocurrio un error al listar los productos",
+                "ERROR",
+                3000
+            );
+        });
+};
 export const actions = {
     leer,
-    crearVenta
+    crearVenta, 
+    listar
 };
 
 export const reducers = {
@@ -53,11 +71,24 @@ export const reducers = {
             producto,
         };
     },
+    [GUARDAR_LISTADO_MISVENTAS]: (state, { misVentas }) => {
+        return {
+            ...state,
+            misVentas,
+        };
+    },
+    [GUARDAR_PAGINA]: (state, { page }) => {
+        return {
+            ...state,
+            page,
+        };
+    },
 };
 
 export const initialState = {
     loader: false,
     producto: {},
+    misVentas:{},
 };
 
 export default handleActions(reducers, initialState);
