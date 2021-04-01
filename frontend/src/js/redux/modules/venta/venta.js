@@ -28,6 +28,8 @@ const crearVenta = (data = {}) => (dispatch)=>{
                 "Exito",
                 5000
             )
+            const urlpush = localStorage.getItem('token')?"/vendedor":"/"
+            dispatch(push(`${urlpush}`));
         })
         .catch((error)=>{
             NotificationManager.error(
